@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber Threat Detection in IOMT device using Machine Learning</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var socket = io();
+
+            socket.on('capture_update', function(data) {
+                document.getElementById('status').textContent = `Captured packets: ${data.packet_count}`;
+            });
+
+            socket.on('capture_complete', function(data) {
+                document.getElementById('status').textContent = data.message;
+            });
+
+            socket.on('capture_error', function(data) {
+                document.getElementById('status').textContent = `Error: ${data.error}`;
+            });
+
+            socket.on('analysis_start', function(data) {
+                document.getElementById('status').textContent = data.message;
+            });
+
+            socket.on('analysis_complete', function(data) {
+                document.getElementById('status').textContent = `Analysis result: ${data.result}`;
+                if (data.result === 'Attack') {
+                    document.body.classList.add('attack');
+                } else {
+                    document.body.classList.remove('attack');
+                }
+            });
+
+            socket.on('analysis_error', function(data) {
+                document.getElementById('status').textContent = `Error: ${data.error}`;
+            });
+
+            document.getElementById('captureForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var ipAddress = document.getElementById('ip_address').value;
+                var duration = document.getElementById('duration').value;
+                fetch('/capture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `ip_address=${ipAddress}&duration=${duration}`
+                });
+                document.getElementById('status').textContent = 'Starting packet capture...';
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Capture of Network Data and Analysis</h1>
+        <form id="captureForm" action="{{url_for('capture')}}" method="post">
+            <label for="ip_address">IP Address:</label>
+            <input type="text" id="ip_address" name="ip_address" required>
+            <label for="duration">Duration (seconds):</label>
+            <input type="number" id="duration" name="duration" value="60">
+            <button type="submit">Start Capture and Analysis</button>
+        </form>
+        <div id="status"></div>
+    </div>
+</body>
+</html>

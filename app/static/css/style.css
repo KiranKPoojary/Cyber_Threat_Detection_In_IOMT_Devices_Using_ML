@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-image:url('images /img1');
+    background-image:url('../images/img3.webp');
     background-size: cover;
     background-color:black;
     color: #fff;
@@ -42,6 +42,8 @@ form button {
     color: white;
     border: none;
     cursor: pointer;
+    width:30%;
+    border-radius:2rem;
 }
 
 form button:hover {

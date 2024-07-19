@@ -10,6 +10,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="\app\capture\captured_data.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="\app\captured_data\captured_data.csv">
           <value>
             <Attribute>

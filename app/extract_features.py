@@ -224,7 +224,7 @@ def extract_features_and_save(input_csv_path, source_ip):
     packets = parse_csv(input_csv_path)
     if packets:
         features = extract_features(packets, source_ip)
-        output_file = 'Extracted_Features_Data/extracted_features.csv'
+        output_file = 'app/Extracted_Features_Data/extracted_features.csv'
         save_features_to_csv(features, output_file)
         print('Successfully extracted features to ',output_file)
         return output_file

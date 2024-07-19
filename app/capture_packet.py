@@ -4,7 +4,7 @@ import os
 import time
 
 def capture_data(ip_address, duration,socketio,interface=4):
-    output_csv_path = "captured_data/captured_data.csv"
+    output_csv_path = 'app/capture/captured_data.csv'
 
     # Construct the tshark command
     tshark_command = [
@@ -12,7 +12,7 @@ def capture_data(ip_address, duration,socketio,interface=4):
         "-i", str(interface),
         "-a", f"duration:{duration}",
         "-f", f"host {ip_address}",
-        "-w", "captured_data/capture.pcap",
+        "-w", "app/capture/capture.pcap",
         "-T", "fields",
         "-e", "frame.number",
         "-e", "frame.time_epoch",

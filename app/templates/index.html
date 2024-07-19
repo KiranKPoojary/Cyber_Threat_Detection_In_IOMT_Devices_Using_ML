@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cyber Threat Detection in IOMT device using Machine Learning</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="static/css/style.css">
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
@@ -27,7 +27,7 @@
             });
 
             socket.on('analysis_complete', function(data) {
-                document.getElementById('status').textContent = `Analysis result: ${data.result}`;
+                document.getElementById('status').textContent = `Network Traffic Analysis result: ${data.result}`;
                 if (data.result === 'Attack') {
                     document.body.classList.add('attack');
                 } else {

@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,url_for,Flask
+from flask import render_template,request,redirect,url_for,Flask,jsonify
 from capture_packet import capture_data
 from flask_socketio import SocketIO,emit
 import threading
@@ -19,12 +19,17 @@ def capture():
     duration = int(request.form.get('duration', 60))
     thread = threading.Thread(target=capture_and_analyze, args=(ip_address,duration,socketio))
     thread.start()
-    return ("Packet capture started at ",ip_address,"for a duration of ",duration)
+    return jsonify({
+        "message": "Packet capture started",
+        "ip_address": ip_address,
+        "duration": duration
+    }), 200
+
 
 def capture_and_analyze(ip_address,duration,socketio,interface=4):
     output_csv_path = capture_data(ip_address, duration, socketio, interface)
     if output_csv_path:
-        socketio.emit('analysis_start',{'message': 'Analyzing captured data...'})
+        socketio.emit('analysis_start', {'message': 'Analyzing captured data...'})
         try:
             features_csv_path = extract_features_and_save(output_csv_path, ip_address)
             if features_csv_path:

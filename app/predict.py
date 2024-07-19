@@ -1,17 +1,24 @@
 import pandas as pd
-import joblib
+import xgboost as xgb
 
-model = joblib.load('model/XGBmodel_TP25_Half_data.pkl')
+bst = xgb.Booster()  # Initialize an empty booster object
+model_path = 'app/model/XGB_trained_model.model'
+def analyze_traffic(file_path):
 
-def analyze_traffic(file_path='app/Extracted_Features_Data/extracted_features_top_25.csv'):
+    bst.load_model(model_path)  # Load the trained model into bst
     df = pd.read_csv(file_path)
 
-    # Handle NaN values (fill NaN with 0, you can use another strategy if needed)
+    # Handle NaN values if necessary
+    df.fillna(0, inplace=True)  # Example: Fill NaN with 0
 
+    # Make predictions
+    predictions = bst.predict(xgb.DMatrix(df))
+    threshold = 0.5
+    class_value = 1 if predictions > threshold else 0
 
-    prediction=model.predict(df)
+    print(class_value)
 
-    #result[] = "Attack" if prediction == 0 else "Benign"
-    print(prediction)
+    result = 'Attack' if class_value == 0 else 'Benign'
+    print(result)
 
-    return 0
+    return result

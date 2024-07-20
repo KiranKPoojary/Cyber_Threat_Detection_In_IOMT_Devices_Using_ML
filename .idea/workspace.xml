@@ -7,20 +7,9 @@
     <list default="true" id="bf57d337-d73e-4eed-b225-a1e300a0763f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Extracted_Features_Data/extracted_features.csv" beforeDir="false" afterPath="$PROJECT_DIR$/app/Extracted_Features_Data/extracted_features.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Extracted_Features_Data/extracted_features_top_25.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/capture.pcap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/capture_packet.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/capture_packet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/captured_data/capture.pcap" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/captured_data/captured_data.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/extract_features.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/extract_features.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/predict.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/routes.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/static/images/img1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/capture/capture.pcap" beforeDir="false" afterPath="$PROJECT_DIR$/app/capture/capture.pcap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/capture/captured_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/app/capture/captured_data.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/reuiremnts.txt" beforeDir="false" afterPath="$PROJECT_DIR$/reuirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,5 +93,16 @@
       <updated>1720929625355</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

@@ -1,0 +1,8 @@
+Flask==3.0.3
+Flask-SocketIO==5.3.6
+numpy==2.0.0
+pandas==2.2.2
+scikit-learn==1.5.1
+requests==2.32.1
+SQLAlchemy==1.4.15
+xgboost==2.1.0

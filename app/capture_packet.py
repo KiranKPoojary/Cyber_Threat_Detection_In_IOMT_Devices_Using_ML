@@ -3,7 +3,7 @@ import csv
 import os
 import time
 
-def capture_data(ip_address, duration,socketio,interface=4):
+def capture_data(ip_address, duration,socketio,interface=5):
     output_csv_path = 'app/capture/captured_data.csv'
 
     # Construct the tshark command

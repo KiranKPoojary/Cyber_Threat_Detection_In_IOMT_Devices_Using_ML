@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>About This Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>About the IoMT Threat Detection System</h1>
+    </header>
+
+    <section class="dataset">
+        <h2>Dataset Information</h2>
+        <p>We used the <strong>CIC-IoMT2024</strong> dataset, a comprehensive collection of real-world healthcare IoMT traffic. It contains benign and multiple categories of attacks, including:</p>
+        <ul>
+            <li>DoS, DDoS, Mirai</li>
+            <li>Port scanning, Spoofing</li>
+            <li>Botnet, Reconnaissance</li>
+        </ul>
+        <p>Features: Header-Length, IAT, Packet Sizes, Flags, and Statistical Features.</p>
+    </section>
+
+    <section class="cnn">
+        <h2>CNN Model</h2>
+        <p>The Convolutional Neural Network model is trained on 2D feature representations extracted from network flows. It uses multiple convolution layers to detect patterns of malicious activity in traffic data.</p>
+        <ul>
+            <li>Input: 2D matrix representing feature map</li>
+            <li>Layers: Conv2D, ReLU, Pooling, Dense</li>
+            <li>Output: Binary classification (0 = Benign, 1 = Attack)</li>
+        </ul>
+    </section>
+
+    <footer>
+        <a href="/">Back to Home</a>
+    </footer>
+</body>
+</html>

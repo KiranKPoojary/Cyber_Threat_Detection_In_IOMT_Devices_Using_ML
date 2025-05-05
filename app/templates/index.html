@@ -6,9 +6,12 @@
     <title>Cyber Threat Detection in IOMT device using Machine Learning</title>
     <link rel="stylesheet" href="static/css/style.css">
     <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var socket = io();
+            var chart;
 
             socket.on('capture_update', function(data) {
                 document.getElementById('status').textContent = `Captured packets: ${data.packet_count}`;
@@ -33,6 +36,8 @@
                 } else {
                     document.body.classList.remove('attack');
                 }
+
+                loadGraph();
             });
 
             socket.on('analysis_error', function(data) {
@@ -52,12 +57,59 @@
                 });
                 document.getElementById('status').textContent = 'Starting packet capture...';
             });
+
+            function createEmptyGraph() {
+        var ctx = document.getElementById('featureChart').getContext('2d');
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [], // Empty labels
+                datasets: [{
+                    label: 'Header-Length',
+                    data: [],
+                    borderColor: 'blue',
+                    fill: false
+                }, {
+                    label: 'RST Count',
+                    data: [],
+                    borderColor: 'red',
+                    fill: false
+                }, {
+                    label: 'SYN Count',
+                    data: [],
+                    borderColor: 'green',
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Packet Index' }},
+                    y: { title: { display: true, text: 'Feature Value' }}
+                }
+            }
+        });
+    }
+
+    function loadGraph() {
+        fetch('/data')
+        .then(response => response.json())
+        .then(data => {
+            chart.data.labels = data.labels;
+            chart.data.datasets[0].data = data.header_length;
+            chart.data.datasets[1].data = data.rst_count;
+            chart.data.datasets[2].data = data.syn_count;
+            chart.update(); // Update the chart with new data
+        });
+    }
+
+    createEmptyGraph();
         });
     </script>
 </head>
 <body>
     <div class="container">
-        <h1>Live Capture of Network Data and Analysis</h1>
+        <h1>Live Capture of Network Data and Analysis for Healthcare IOMT devices</h1>
         <form id="captureForm" action="{{url_for('capture')}}" method="post">
             <label for="ip_address">IP Address:</label>
             <input type="text" id="ip_address" name="ip_address" required>
@@ -66,6 +118,13 @@
             <button type="submit">Start Capture and Analysis</button>
         </form>
         <div id="status"></div>
+
+        <div class="container graph-container">
+            <h2>Extracted Feature Data Visualization</h2>
+            <canvas id="featureChart"></canvas>
+        </div>
     </div>
+
+
 </body>
 </html>

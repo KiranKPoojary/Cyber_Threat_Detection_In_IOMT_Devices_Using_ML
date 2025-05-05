@@ -1,0 +1,172 @@
+/* General Page Style */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #e3f2fd);
+    color: #333;
+    transition: background 0.5s ease-in-out;
+}
+
+/* Attack Warning Mode */
+body.attack {
+    background: radial-gradient(circle, #ffcccc 0%, #ffe6e6 100%);
+}
+
+/* Header */
+header {
+    background: linear-gradient(90deg, #34495e, #2c3e50);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 5px solid #2980b9;
+    border-radius: 0 0 15px 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+header h1 i {
+    margin-right: 12px;
+    color: #1abc9c;
+}
+
+/* Card Section */
+section {
+    margin: 2rem auto;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(6px);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Style */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+input, button {
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    border: 1px solid #b0bec5;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 6px rgba(52, 152, 219, 0.4);
+}
+
+button {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(135deg, #1c5d85, #2471a3);
+    transform: scale(1.02);
+}
+
+.status-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #e3f2fd;
+    border-left: 6px solid #3498db;
+    font-weight: 600;
+    border-radius: 10px;
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Graph */
+.chart-section canvas {
+    width: 100% !important;
+    max-height: 400px;
+}
+
+/* Accordion Styling */
+.styled-accordion {
+    margin-top: 40px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.styled-accordion h2 {
+    font-size: 26px;
+    margin-bottom: 25px;
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    padding-bottom: 10px;
+}
+
+/* Accordion Items */
+.accordion-item {
+    border: 1px solid #dcdde1;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.accordion-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    background: linear-gradient(90deg, #ecf0f1, #dfe6e9);
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.accordion-label:hover {
+    background-color: #cfd8dc;
+}
+
+.accordion-label .arrow {
+    width: 12px;
+    height: 12px;
+    border-right: 2px solid #2d3436;
+    border-bottom: 2px solid #2d3436;
+    transform: rotate(45deg);
+    transition: transform 0.3s ease;
+}
+
+/* Checkbox Toggle */
+.accordion-item input {
+    display: none;
+}
+
+.accordion-item input:checked ~ .accordion-content {
+    max-height: 200px;
+    padding: 15px 20px;
+    transition: all 0.4s ease;
+}
+
+.accordion-item input:checked ~ .accordion-label .arrow {
+    transform: rotate(-135deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    background: #f7f9fa;
+    color: #2d3436;
+    transition: all 0.3s ease;
+    padding: 0 20px;
+    font-size: 15px;
+}
+
+/* Fade Animation */
+@keyframes fadeIn {
+    0% {opacity: 0; transform: translateY(10px);}
+    100% {opacity: 1; transform: translateY(0);}
+}

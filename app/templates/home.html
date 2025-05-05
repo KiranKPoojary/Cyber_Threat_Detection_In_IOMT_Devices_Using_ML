@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>IoMT Cyber Threat Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Cyber Threat Detection in IoMT Devices</h1>
+        <p>Using Deep Learning (CNN) for Healthcare Network Security</p>
+    </header>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/analysis">Real-Time Analysis</a>
+        <a href="/about">About</a>
+    </nav>
+
+    <section class="slideshow">
+        <div class="slides fade"><img src="{{ url_for('static', filename='images/img1.jpg') }}"></div>
+        <div class="slides fade"><img src="{{ url_for('static', filename='images/img2.jpg') }}"></div>
+        <div class="slides fade"><img src="{{ url_for('static', filename='images/img5.jpg') }}"></div>
+        <div class="slides fade"><img src="{{ url_for('static', filename='images/img6.png') }}"></div>
+    </section>
+
+    <section class="overview">
+        <h2>Project Overview</h2>
+       <p>
+        This project is focused on providing an intelligent security solution for Internet of Medical Things (IoMT) networks.
+        It uses Deep Learning—specifically, a CNN (Convolutional Neural Network)—to detect whether incoming traffic is benign or malicious.
+        Our platform ensures that real-time packet traffic from healthcare devices like ECGs, insulin pumps, and monitors is protected against cyber threats.
+    </p>
+    <p>
+        The system combines <strong>real-time packet capturing</strong>, <strong>feature engineering</strong>, and <strong>deep learning prediction</strong>
+        into a single, lightweight application built with Flask and Socket.IO.
+    </p>
+    </section>
+
+    <section class="how-it-works">
+        <h2>How It Works</h2>
+        <ol>
+            <li>Capture network packets using Wireshark (Tshark)</li>
+            <li>Extract features and preprocess data</li>
+            <li>Convert traffic patterns into 2D format for CNN input</li>
+            <li>CNN model classifies traffic as Benign or Attack</li>
+        </ol>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 CyberSec Healthcare AI | <a href="/about">Learn More</a></p>
+    </footer>
+
+    <script>
+        let slideIndex = 0;
+        showSlides();
+        function showSlides() {
+            let slides = document.getElementsByClassName("slides");
+            for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+            slideIndex++;
+            if (slideIndex > slides.length) slideIndex = 1;
+            slides[slideIndex-1].style.display = "block";
+            setTimeout(showSlides, 3000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IoMT Threat Analysis Dashboard</title>
+
+    <!-- Style -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_analysis.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Scripts -->
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="analysis-container">
+        <header>
+            <h1><i class="fas fa-heartbeat"></i> IoMT Threat Detection Dashboard</h1>
+        </header>
+
+        <section class="form-section">
+            <h2><i class="fas fa-network-wired"></i> Live Capture Input</h2>
+            <form id="captureForm" action="{{url_for('capture')}}" method="post">
+                <label for="ip_address">IP Address:</label>
+                <input type="text" id="ip_address" name="ip_address" placeholder="e.g., 192.168.1.10" required>
+
+                <label for="duration">Duration (seconds):</label>
+                <input type="number" id="duration" name="duration" value="60" min="1" max="300">
+
+                <button type="submit"><i class="fas fa-play-circle"></i> Start Capture & Analysis</button>
+            </form>
+            <div id="status" class="status-box">Waiting for input...</div>
+        </section>
+
+       <!-- <section class="chart-section">
+            <h2><i class="fas fa-chart-line"></i> Feature Visualization</h2>
+            <canvas id="featureChart"></canvas>
+        </section> -->
+
+        <section class="container styled-accordion">
+            <h2> Feature Overview</h2>
+        <section id="accordionContainer" class="accordion"></section>
+</section>
+
+
+
+    </div>
+
+
+
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var socket = io();
+            var chart;
+
+            socket.on('capture_update', function(data) {
+                document.getElementById('status').textContent = `Captured packets: ${data.packet_count}`;
+            });
+
+            socket.on('capture_complete', function(data) {
+                document.getElementById('status').textContent = data.message;
+            });
+
+            socket.on('capture_error', function(data) {
+                document.getElementById('status').textContent = `Error: ${data.error}`;
+            });
+
+            socket.on('analysis_start', function(data) {
+                document.getElementById('status').textContent = data.message;
+            });
+
+            socket.on('analysis_complete', function(data) {
+                document.getElementById('status').textContent = `Network Traffic Analysis result: ${data.result}`;
+                document.body.classList.toggle('attack', data.result === 'Attack');
+                loadGraph();
+                loadAccordion();
+            });
+
+            socket.on('analysis_error', function(data) {
+                document.getElementById('status').textContent = `Error: ${data.error}`;
+            });
+
+            document.getElementById('captureForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var ipAddress = document.getElementById('ip_address').value;
+                var duration = document.getElementById('duration').value;
+                fetch('/capture', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `ip_address=${ipAddress}&duration=${duration}`
+                });
+                document.getElementById('status').textContent = 'Starting packet capture...';
+            });
+
+            function createEmptyGraph() {
+                var ctx = document.getElementById('featureChart').getContext('2d');
+                chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: [],
+                        datasets: [
+                            {
+                                label: 'Header-Length',
+                                data: [],
+                                borderColor: 'blue',
+                                fill: false
+                            },
+                            {
+                                label: 'RST Count',
+                                data: [],
+                                borderColor: 'red',
+                                fill: false
+                            },
+                            {
+                                label: 'SYN Count',
+                                data: [],
+                                borderColor: 'green',
+                                fill: false
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: { title: { display: true, text: 'Packet Index' }},
+                            y: { title: { display: true, text: 'Feature Value' }}
+                        }
+                    }
+                });
+            }
+
+           function loadGraph() {
+                fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    chart.data.labels = data.labels;
+                    chart.data.datasets[0].data = data.header_length;
+                    chart.data.datasets[1].data = data.rst_count;
+                    chart.data.datasets[2].data = data.syn_count;
+                    chart.update();
+                });
+            }
+
+            createEmptyGraph();
+        });
+
+
+
+        function loadAccordion() {
+    fetch('/data')
+        .then(res => res.json())
+        .then(data => {
+            const container = document.getElementById('accordionContainer');
+            container.innerHTML = '';
+            Object.entries(data).forEach(([feature, value], index) => {
+                const item = `
+                    <div class="accordion-item">
+                        <input type="checkbox" id="acc-${index}" />
+                        <label class="accordion-label" for="acc-${index}">
+                            <span>${feature}</span>
+                            <i class="arrow"></i>
+                        </label>
+                        <div class="accordion-content">
+                            <p><strong>Value:</strong> ${value}</p>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += item;
+            });
+        });
+}
+
+
+    </script>
+</body>
+</html>

@@ -5,3 +5,10 @@ pandas==2.2.2
 scikit-learn==1.5.1
 requests==2.32.1
 xgboost==2.1.0
+
+
+scipy==1.15.2
+plotly==3.1.1
+joblib==0.13.2
+scapy==2.6.1
+psutil==7.0.0
